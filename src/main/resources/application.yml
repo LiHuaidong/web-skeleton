@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: web-skeleton
+    multipart:
+      max-file-size: 8Mb
+      max-request-size: 8Mb
+  # 国际化相关配置
+  messages:
+    basename: i18n/messages
+    cache-seconds: -1
+    encoding: utf-8
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: 12345678
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL
+      minimum-idle: 3
+      maximum-pool-size: 24
+      pool-name: ${spring.application.name}-CP
+      idle-timeout: 10000
+      leakDetectionThreshold: 5000
+
+# Mybatis相关配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+  mapperLocations: classpath*:mybatis/mapper/*/*.xml
+
+# Swagger开关配置    
+swagger:
+  show: true
+
+mock:
+  enable: false
+server:
+  port: 8084
+  context-path: /
+  compression:
+    enabled: true
+  servlet:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+
+# actuator是否需要安全保证配置
+management:
+  security:
+    enabled: false
+
+# 日志相关配置
+logging:
+  level:
+    ROOT: INFO
+    hdii.mapper: debug
+  file:
+    name: ${spring.application.name}
+
+
+
